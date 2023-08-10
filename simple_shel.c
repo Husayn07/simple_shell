@@ -6,15 +6,16 @@
  */
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	char *buff;
 	size_t n = 0;
-	int argc = 0;
-	char *argv[100];
+	char c = '$';
 
-	getline(&buff, &n, stdin);
+	write(1, &c, sizeof(char));
 
+	if ((getline(&buff, &n, stdin)) == -1)
+		perror("INPUT FAILLED");
 
 	char *d = " \n";
 	char *ptr = strtok(buff, d);
