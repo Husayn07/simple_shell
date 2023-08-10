@@ -6,20 +6,25 @@
  */
 
 
-int main(int argc, char *argv[])
+int main(void)
 {
+	char *argv[10];
+	int argc;
 	char *buff;
 	size_t n = 0;
 	char c = '$';
+	char *d = " \n";
+	char *ptr;
 
+while(1)
+{
 	write(1, &c, sizeof(char));
 
+	fflush(stdin);
 	if ((getline(&buff, &n, stdin)) == -1)
 		perror("INPUT FAILLED");
 
-	char *d = " \n";
-	char *ptr = strtok(buff, d);
-
+	ptr = strtok(buff, d);
 	while (ptr)
 	{
 		argv[argc] = ptr;
@@ -27,5 +32,32 @@ int main(int argc, char *argv[])
 		argc++;
 	}
 	argv[argc++] = NULL;
+
+	pid_t fid;
+
+       if ((fid = fork()) == -1)
+	       perror("SYSTEM CALL FAILS");
+
+	if (fid == 0)
+	{
+		/*child process*/
+		if ((execve(argv[0], argv, NULL)) == -1)
+		{
+			perror("SYS FAILLED");
+			exit;
+		}
+	}
+	else
+	{
+		wait(NULL);
+		int i = 0;
+		while(argv[i])
+		{
+			printf("%s ", argv[i]);
+			i++;
+		}
+		putchar('\n');
+	}
+}
 	return (0);
 }
