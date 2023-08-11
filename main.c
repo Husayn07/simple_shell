@@ -1,12 +1,8 @@
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "shell.h"
 
-extern char **environ;
-#define MAX 20
 
-char *cmd_check(char *cmd, int *i);
+
+int cmd_check(char *cmd, int *i, char *argv[]);
 int display_pmt();
 
 int main(int argc, char *argv[], char **envp)
@@ -14,7 +10,6 @@ int main(int argc, char *argv[], char **envp)
 	char *cmd = NULL;
 	size_t n = 0;
 	int i;
-	char *ptmd[MAX];
 
 while(1)
 {
@@ -26,15 +21,13 @@ while(1)
 		perror("input failled");
 
 	/*need to formant user input*/
-	argv[0] = cmd_check(cmd, &i);
-
+	cmd_check(cmd, &i, argv);
 	argc = i;
 
-	printf("%d, %s", argc, argv[0]);
-
+	/*call execution command*/
+	execute_command(argv);
 }
 }
-
 
 
 /**
@@ -61,21 +54,53 @@ int display_pmt()
  * Return: return int number of argumment and cmd input by the user
  */
 
-char *cmd_check(char *cmd, int *i)
+int cmd_check(char *cmd, int *i, char *argv[])
 {
-	char *ptcmd;
 	char *delime = (" \n");
 	int a = 0;
-	char *ptr;
+	char *ptkn;
 
-	ptr = strtok(cmd, delime);
-	ptcmd = ptr;
+	ptkn = strtok(cmd, delime);
+	argv[a] = ptkn;
 
-	while(ptr)
+	printf("%s\n", argv[0]);
+
+	while(ptkn)
 	{
-		ptr = strtok(NULL, delime);
+		ptkn = strtok(NULL, delime);
 		a++;
+		argv[a] = ptkn;
+	/*printf("%s\n", ptr[a]);*/
 	}
 	*i = a;
-	return (ptcmd);
+	return (0);
+}
+
+
+
+/**
+ * execute_command - Execute a command.
+ * @argv: The argument vector containing the command and its arguments.
+ */
+void execute_command(char *argv[])
+{
+	pid_t pid = fork();
+
+	if (pid == -1)
+	{
+		perror("Fork failed");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		if (execvp(argv[0], argv) == -1)
+		{
+			perror("Command execution failed");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		wait(NULL);
+	}
 }

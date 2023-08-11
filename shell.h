@@ -8,6 +8,10 @@
 #include <sys/wait.h>
 
 
+#define MAX 10
+
+extern char **environ;
+void execute_command(char *argv[]);
 
 
 #endif
