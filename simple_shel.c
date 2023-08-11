@@ -10,7 +10,7 @@ extern char **environ;
 int main(void)
 {
 	char *argv[10];
-	int argc;
+	int argc = 0;
 	char *buff;
 	size_t n = 0;
 	char c = '$';
@@ -28,8 +28,14 @@ while(1)
 	ptr = strtok(buff, d);
 	while (ptr)
 	{
-		argv[argc] = ptr;
+		if(!argc)
+		{
+			char *ptr1 ="/usr/bin/";
+			strcat(ptr1, ptr);
+			argv[argc++] = ptr1;
+		}
 		ptr = strtok(NULL, d);
+		argv[argc] = ptr;
 		argc++;
 	}
 	argv[argc++] = NULL;
