@@ -11,7 +11,7 @@
 #define MAX 10
 
 extern char **environ;
-void execute_command(char *argv[]);
+void execute_command(char *argv[], char *envp[]);
 
 
 #endif

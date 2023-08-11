@@ -25,7 +25,7 @@ while(1)
 	argc = i;
 
 	/*call execution command*/
-	execute_command(argv);
+	execute_command(argv, envp);
 }
 }
 
@@ -63,8 +63,6 @@ int cmd_check(char *cmd, int *i, char *argv[])
 	ptkn = strtok(cmd, delime);
 	argv[a] = ptkn;
 
-	printf("%s\n", argv[0]);
-
 	while(ptkn)
 	{
 		ptkn = strtok(NULL, delime);
@@ -80,9 +78,10 @@ int cmd_check(char *cmd, int *i, char *argv[])
 
 /**
  * execute_command - Execute a command.
- * @argv: The argument vector containing the command and its arguments.
+ * @argv: arg vector
+ * @envp: environ variable
  */
-void execute_command(char *argv[])
+void execute_command(char *argv[], char *envp[])
 {
 	pid_t pid = fork();
 
@@ -93,7 +92,8 @@ void execute_command(char *argv[])
 	}
 	else if (pid == 0)
 	{
-		if (execvp(argv[0], argv) == -1)
+		/*child process*/
+		if (execve(argv[0], argv, envp) == -1)
 		{
 			perror("Command execution failed");
 			exit(EXIT_FAILURE);
