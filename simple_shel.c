@@ -5,6 +5,7 @@
  * return
  */
 
+extern char **environ;
 
 int main(void)
 {
@@ -41,7 +42,7 @@ while(1)
 	if (fid == 0)
 	{
 		/*child process*/
-		if ((execve(argv[0], argv, NULL)) == -1)
+		if ((execve(argv[0], argv, environ)) == -1)
 		{
 			perror("SYS FAILLED");
 			exit;
@@ -50,13 +51,6 @@ while(1)
 	else
 	{
 		wait(NULL);
-		int i = 0;
-		while(argv[i])
-		{
-			printf("%s ", argv[i]);
-			i++;
-		}
-		putchar('\n');
 	}
 }
 	return (0);
