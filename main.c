@@ -2,8 +2,6 @@
 
 
 
-int cmd_check(char *cmd, int *i, char *argv[]);
-int display_pmt();
 
 int main(int argc, char *argv[], char **envp)
 {
@@ -24,8 +22,17 @@ while(1)
 	cmd_check(cmd, &i, argv);
 	argc = i;
 
+	/*status check*/
+	stat_check(argv, argc);
+
 	/*call execution command*/
 	execute_command(argv, envp);
+
+
+	/*exit program*/
+	if((_strcmp(argv[0], "exit")) == 0)
+		exit(EXIT_SUCCESS);
+	return (0);
 }
 }
 
