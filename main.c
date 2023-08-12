@@ -17,9 +17,12 @@ while(1)
 	/*get cmd from user*/
 	if((getline(&cmd, &n, stdin)) == -1)
 		perror("input failled");
+	/*create copy fomr cmd to avoid */
+	char *cmd1 = NULL;
+	cmd1 = _strdup(cmd);
 
 	/*need to formant user input*/
-	cmd_check(cmd, &i, argv);
+	cmd_check(cmd1, &i, argv);
 	argc = i;
 
 	/*status check*/

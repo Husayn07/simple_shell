@@ -20,3 +20,81 @@ int _strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
+
+
+
+
+
+/**
+ * _strdup - duplicate to new memory space location
+ * @str: char
+ * Return: 0
+ */
+char *_strdup(char *str)
+{
+	char *aaa;
+	int i, r = 0;
+
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+
+	aaa = malloc(sizeof(char) * (i + 1));
+
+	if (aaa == NULL)
+		return (NULL);
+
+	for (r = 0; str[r]; r++)
+		aaa[r] = str[r];
+
+	return (aaa);
+}
+
+
+
+
+
+/**
+ * str_concat - get ends of input and add together for size
+ * @s1: input one to concat
+ * @s2: input two to concat
+ * @s: input 3
+ * Return: concat of s1 and s2
+ */
+char *str_concat_(char *s1, char *s, char *s2)
+{
+	char *conct;
+	int i, ci;
+
+	if (s1 == NULL)
+		s1 = "";
+	if (s2 == NULL)
+		s2 = "";
+
+	i = ci = 0;
+	while (s1[i] != '\0')
+		i++;
+	while (s2[ci] != '\0')
+		ci++;
+	conct = malloc(sizeof(char) * (i + ci + 2));
+
+	if (conct == NULL)
+		return (NULL);
+	i = ci = 0;
+	while (s1[i] != '\0')
+	{
+		conct[i] = s1[i];
+		i++;
+	}
+	conct[i] = s[0];
+	i++;
+	while (s2[ci] != '\0')
+	{
+		conct[i] = s2[ci];
+		i++, ci++;
+	}
+	conct[i] = '\0';
+	return (conct);
+}
