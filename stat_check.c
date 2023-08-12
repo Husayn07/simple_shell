@@ -21,9 +21,12 @@ int stat_check(char *argv[], int argc)
 	if (stat(argv[i], &st) == 0)
 	{
 		printf(" FOUND\n");
+		execute_command(argv[0], argv, environ);
 	}
 	else
 	{
+		char *ptr = get_path(argv[0]);
+		execute_command(ptr,argv, environ);
 		printf(" NOT FOUND\n");
 	}
   return (0);

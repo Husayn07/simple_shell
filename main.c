@@ -29,7 +29,6 @@ while(1)
 	stat_check(argv, argc);
 
 	/*call execution command*/
-	execute_command(argv, envp);
 
 
 	/*exit program*/
@@ -53,8 +52,8 @@ int display_pmt()
 	char d = '/';
 	if (c)
 	{
-		write(1, &c,1);
 		write(1, &d,1);
+		write(1, &c,1);
 		return (1);
 	}
 	else
@@ -95,7 +94,7 @@ int cmd_check(char *cmd, int *i, char *argv[])
  * @argv: arg vector
  * @envp: environ variable
  */
-void execute_command(char *argv[], char *envp[])
+void execute_command(char *cmd, char *argv[], char *envp[])
 {
 	pid_t pid = fork();
 
@@ -107,8 +106,7 @@ void execute_command(char *argv[], char *envp[])
 	else if (pid == 0)
 	{
 		/*child process*/
-		char *ptr = argv[0];
-		if (execve(ptr, argv, envp) == -1)
+		if (execve(cmd, argv, envp) == -1)
 		{
 			perror("Command execution failed");
 			exit(EXIT_FAILURE);
