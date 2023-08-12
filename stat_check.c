@@ -3,10 +3,10 @@
 #include <sys/stat.h>
 
 /**
- * stat_check - stat evaluatio
+ * stat_check - stat check if file can be found.
  * @argv: arg vector:
  * @argc: arg count:
- * Return: Always 0.
+ * Return: return 1 if found 0 if not found
  */
 
 int stat_check(char *argv[], int argc)
@@ -16,18 +16,14 @@ int stat_check(char *argv[], int argc)
 
 	if (argc < 1)
 	{
-		;
+		return (2);
 	}
-	if (stat(argv[i], &st) == 0)
+	else if (stat(argv[i], &st) == 0)
 	{
-		printf(" FOUND\n");
-		execute_command(argv[0], argv, environ);
+		return (1);
 	}
 	else
 	{
-		char *ptr = get_path(argv[0]);
-		execute_command(ptr,argv, environ);
-		printf(" NOT FOUND\n");
+		return (0);
 	}
-  return (0);
 }

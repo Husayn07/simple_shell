@@ -1,13 +1,19 @@
 #include "shell.h"
 
-
-
+/**
+ * main - main program.
+ * @argc
+ * @argv
+ * @envp
+ * Return: interger.
+ */
 
 int main(int argc, char *argv[], char **envp)
 {
 	char *cmd = NULL;
 	size_t n = 0;
 	int i;
+	int check = 5;
 
 while(1)
 {
@@ -26,9 +32,21 @@ while(1)
 	argc = i;
 
 	/*status check*/
-	stat_check(argv, argc);
-
-	/*call execution command*/
+	/* start execution comannd*/
+	check = stat_check(argv, argc);
+	if(check == 2)
+		;
+	else if(check == 1)
+		execute_command(argv[0], argv, envp);
+	else if(check == 0)
+	{
+		char *temp = get_path(argv[0]);
+		if(temp)
+			execute_command(temp, argv,  envp);
+	}
+	else
+		;
+	/*call execution command done*/
 
 
 	/*exit program*/
