@@ -16,6 +16,7 @@ int cmd_check(char *cmd, int *i, char *argv[]);
 int display_pmt();
 void execute_command(char *argv[], char *envp[]);
 int _strcmp(char *s1, char *s2);
+char *_getenv(char *path_name); 
 
 
 #endif
