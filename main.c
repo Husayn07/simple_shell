@@ -49,7 +49,7 @@ while(1)
 		execute_command(cmdf, argv,  envp);
 		}
 		else
-		printf("check%s\n", cmdf);
+		printf("check%s  get_path have a bug\n", cmdf);
 	}
 	/*call execution command done*/
 
