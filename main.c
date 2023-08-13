@@ -14,7 +14,7 @@ int main(int argc, char *argv[], char **envp)
 	char *cmdf = NULL;
 	size_t n = 0;
 	int i;
-	int check = 5;
+	int check;
 
 while(1)
 {
@@ -35,18 +35,22 @@ while(1)
 	/*status check*/
 	/* start execution comannd*/
 	check = stat_check(argv, argc);
+	printf("%d\n", check);
 	if(check == 2)
-		;
-	else if(check == 1)
+		continue;
+	if(check == 1)
 		execute_command(argv[0], argv, envp);
-	else if(check == 0)
+	if(check == 0)
 	{
 		cmdf = get_path(argv[0]);
 		if(cmdf)
-			execute_command(cmdf, argv,  envp);
+		{
+		printf("check%s\n", cmdf);
+		execute_command(cmdf, argv,  envp);
+		}
+		else
+		printf("check%s\n", cmdf);
 	}
-	else
-		printf("%s\n", cmdf);
 	/*call execution command done*/
 
 
@@ -56,11 +60,8 @@ while(1)
 		break;
 	if((strcmp(argv[0], "EXIT")) == 0)
 		break;
-		
-	free(cmd);
+
 	free(cmdf);
-	cmd = NULL;
-	cmdf = NULL;
 }
 	return (0);
 }

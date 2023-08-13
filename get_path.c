@@ -14,7 +14,7 @@
 char *get_path(char* argv)
 {
 	char *ptr = NULL;
-	char *ptr1[MAX] = {NULL,NULL, NULL, NULL, NULL};
+	char *ptr1[MAX];
 	int i = 0;
 	char *cmd = NULL;
 

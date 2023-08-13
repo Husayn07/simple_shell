@@ -16,6 +16,7 @@ int stat_check(char *argv[], int argc)
 
 	if (argc < 1)
 	{
+		printf("%d\n", argc);
 		return (2);
 	}
 	else if (stat(argv[i], &st) == 0)
