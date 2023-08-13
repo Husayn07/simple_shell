@@ -10,10 +10,10 @@
  * Return: pointer to part.
  */
 
-int get_path(char* argv, char *ptrx)
+int get_path(char* argv)
 {
 	char *ptr = NULL;
-	char *cmd = NULL;
+	comand = NULL;
 	char *tok = NULL;
 	int check = 0;
 
@@ -22,17 +22,16 @@ int get_path(char* argv, char *ptrx)
 	tok = strtok(ptr1, ":");
 	while(tok)
 	{
-		cmd = str_concat_(tok, "/", argv);
-		printf("%s,  cmd\n", cmd);	
-		check = stat_check_cat(cmd);
+		comand = str_concat_(tok, "/", argv);
+		check = stat_check_cat(comand);
 		if (check == 1)
 		{
-			ptrx = _strdup(cmd);
+			free(ptr1);
 			return (1);
 		}
-		free(cmd);
 		tok = strtok(NULL, ":");
 	}
+	free(comand);
 	free(ptr1);
 	return (0);
 }
