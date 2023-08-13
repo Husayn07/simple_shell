@@ -11,6 +11,7 @@
 int main(int argc, char *argv[], char **envp)
 {
 	char *cmd = NULL;
+	char *cmdf = NULL;
 	size_t n = 0;
 	int i;
 	int check = 5;
@@ -40,20 +41,26 @@ while(1)
 		execute_command(argv[0], argv, envp);
 	else if(check == 0)
 	{
-		char *temp = get_path(argv[0]);
-		if(temp)
-			execute_command(temp, argv,  envp);
+		cmdf = get_path(argv[0]);
+		if(cmdf)
+			execute_command(cmdf, argv,  envp);
 	}
 	else
-		;
+		printf("%s\n", cmdf);
 	/*call execution command done*/
 
 
 	/*exit program*/
 	/* need to fix strcmp*/
-/*	if((strcmp(argv[0], "exit")) == 0)
-		exit(EXIT_SUCCESS);
-		*/
+	if((strcmp(argv[0], "exit")) == 0)
+		break;
+	if((strcmp(argv[0], "EXIT")) == 0)
+		break;
+		
+	free(cmd);
+	free(cmdf);
+	cmd = NULL;
+	cmdf = NULL;
 }
 	return (0);
 }

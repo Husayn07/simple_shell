@@ -13,11 +13,12 @@
 
 char *get_path(char* argv)
 {
-	char *ptr = _getenv("PATH");
-	char *ptr1[MAX];
+	char *ptr = NULL;
+	char *ptr1[MAX] = {NULL,NULL, NULL, NULL, NULL};
 	int i = 0;
-	char *cmd;
+	char *cmd = NULL;
 
+	ptr = _getenv("PATH");
 	ptr1[i] = strtok(ptr, ":");
 	while(ptr[i])
 	{
