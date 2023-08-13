@@ -20,6 +20,7 @@ char *_getenv(char *path_name);
 char *_strdup(char *str);
 char *str_concat_(char *s1, char *s, char *s2);
 char *get_path(char* argv);
+int stat_check_cat(char *ptr);
 
 
 #endif

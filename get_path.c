@@ -1,5 +1,6 @@
 #include "shell.h" 
 #include <sys/stat.h>
+#include <sys/types.h>
 
 
 
@@ -14,27 +15,28 @@
 char *get_path(char* argv)
 {
 	char *ptr = NULL;
-	char *ptr1[MAX];
 	int i = 0;
 	char *cmd = NULL;
+	char *tok = NULL;
+	int check = 2;
 
 	ptr = _getenv("PATH");
-	ptr1[i] = strtok(ptr, ":");
-	while(ptr[i])
+	tok = strtok(ptr, ":");
+	while(tok)
 	{
-		i++;
-		ptr1[i] = strtok(NULL, ":");
-	}
-
-	for(;i >= 0; i--)
-	{
-		cmd = str_concat_(ptr1[i], "/", argv);
-		struct stat st;
-
-		if ((stat(cmd, &st)) == 0)
+		cmd = str_concat_(tok, "/", argv);
+		
+		check = stat_check_cat(cmd);
+		if (check == 1)
 			return (cmd);
+		if (check == 0)
+		{
+			tok = strtok(NULL, ":");
+			continue;
+		}
+
 	}
-  return (NULL);
+	return(argv);
 }
 
 
@@ -60,4 +62,28 @@ char *_getenv(char *path_name)
 		environ_cursor++;
 	}
 	return (NULL);
+}
+
+
+
+
+
+/**
+ * stat_check - stat check if file can be found.
+ * @ptr: ptr vector:
+ * Return: return 1 if found 0 if not found
+ */
+
+int stat_check_cat(char *ptr)
+{
+	struct stat st;
+
+	if (stat(ptr, &st) == 0)
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
 }
