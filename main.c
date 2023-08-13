@@ -42,7 +42,8 @@ while(1)
 		execute_command(argv[0], argv, envp);
 	if(check == 0)
 	{
-		cmdf = get_path(argv[0]);
+		i = get_path(argv[0], cmdf);
+		printf("%d\n", i);
 		if(cmdf)
 		{
 		printf("check%s\n", cmdf);

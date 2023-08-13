@@ -5,38 +5,36 @@
 
 
 /**
- * main - a fubction that locate the path to a dike in the environ.
- * @argc: vector count
+ * main - a function that locate the path to a file in the environ.
  * @argv: vector array pointer to strings
- * @envp: environ variable
  * Return: pointer to part.
  */
 
-char *get_path(char* argv)
+int get_path(char* argv, char *ptrx)
 {
 	char *ptr = NULL;
-	int i = 0;
 	char *cmd = NULL;
 	char *tok = NULL;
-	int check = 2;
+	int check = 0;
 
 	ptr = _getenv("PATH");
-	tok = strtok(ptr, ":");
+	char *ptr1 = _strdup(ptr);
+	tok = strtok(ptr1, ":");
 	while(tok)
 	{
 		cmd = str_concat_(tok, "/", argv);
-		
+		printf("%s,  cmd\n", cmd);	
 		check = stat_check_cat(cmd);
 		if (check == 1)
-			return (cmd);
-		if (check == 0)
 		{
-			tok = strtok(NULL, ":");
-			continue;
+			ptrx = _strdup(cmd);
+			return (1);
 		}
-
+		free(cmd);
+		tok = strtok(NULL, ":");
 	}
-	return(argv);
+	free(ptr1);
+	return (0);
 }
 
 
@@ -76,9 +74,7 @@ char *_getenv(char *path_name)
 
 int stat_check_cat(char *ptr)
 {
-	struct stat st;
-
-	if (stat(ptr, &st) == 0)
+	if (access(ptr, F_OK) == 0)
 	{
 		return (1);
 	}
