@@ -5,9 +5,9 @@
 
 
 /**
- * main - a function that locate the path to a file in the environ.
+ * get_path - a function that locate the path to a file in the environ.
  * @argv: vector array pointer to strings
- * Return: pointer to part.
+ * Return: 1 on sucess | 0 on faliure
  */
 
 int get_path(char *argv)
@@ -38,6 +38,11 @@ int get_path(char *argv)
 
 
 
+/**
+ * _getenv - a function that pull out path from envp.
+ * @path_name: key name to be search for in envp[].
+ * Return: NULL.
+ */
 char *_getenv(char *path_name)
 {
 	char **env_cur, *env_ptr, *nptr;
@@ -66,7 +71,7 @@ char *_getenv(char *path_name)
 
 
 /**
- * stat_check - stat check if file can be found.
+ * stat_check_cat - stat check if file can be found.
  * @ptr: ptr vector:
  * Return: return 1 if found 0 if not found
  */
