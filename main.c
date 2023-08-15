@@ -11,7 +11,7 @@
 int main(int argc, char *argv[], char **envp)
 {
 	char *cmd = NULL;
-	char *cmdf = NULL;
+	char *cmd1 = NULL;
 	size_t n = 0;
 	int i;
 	int check;
@@ -25,7 +25,6 @@ while(1)
 	if((getline(&cmd, &n, stdin)) == -1)
 		perror("input failled");
 	/*create copy fomr cmd to avoid */
-	char *cmd1 = NULL;
 	cmd1 = _strdup(cmd);
 
 	/*need to formant user input*/
@@ -35,21 +34,20 @@ while(1)
 	/*status check*/
 	/* start execution comannd*/
 	check = stat_check(argv, argc);
-	printf("%d\n", check);
 	if(check == 2)
 		continue;
 	if(check == 1)
 		execute_command(argv[0], argv, envp);
 	if(check == 0)
 	{
-		cmdf = get_path(argv[0]);
-		if(cmdf)
+		i = get_path(argv[0]);
+		argv[0] = comand;
+		if(comand)
 		{
-		printf("check%s\n", cmdf);
-		execute_command(cmdf, argv,  envp);
+		execute_command(argv[0], argv,  envp);
 		}
 		else
-		printf("check%s  get_path have a bug\n", cmdf);
+		perror("comand not found");
 	}
 	/*call execution command done*/
 
@@ -61,7 +59,7 @@ while(1)
 	if((strcmp(argv[0], "EXIT")) == 0)
 		break;
 
-	free(cmdf);
+	free(comand);
 }
 	return (0);
 }

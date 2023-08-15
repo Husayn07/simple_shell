@@ -1,40 +1,39 @@
 #include "shell.h" 
 #include <sys/stat.h>
+#include <sys/types.h>
 
 
 
 /**
- * main - a fubction that locate the path to a dike in the environ.
- * @argc: vector count
+ * main - a function that locate the path to a file in the environ.
  * @argv: vector array pointer to strings
- * @envp: environ variable
  * Return: pointer to part.
  */
 
-char *get_path(char* argv)
+int get_path(char* argv)
 {
 	char *ptr = NULL;
-	char *ptr1[MAX];
-	int i = 0;
-	char *cmd = NULL;
+	comand = NULL;
+	char *tok = NULL;
+	int check = 0;
 
 	ptr = _getenv("PATH");
-	ptr1[i] = strtok(ptr, ":");
-	while(ptr[i])
+	char *ptr1 = _strdup(ptr);
+	tok = strtok(ptr1, ":");
+	while(tok)
 	{
-		i++;
-		ptr1[i] = strtok(NULL, ":");
+		comand = str_concat_(tok, "/", argv);
+		check = stat_check_cat(comand);
+		if (check == 1)
+		{
+			free(ptr1);
+			return (1);
+		}
+		tok = strtok(NULL, ":");
 	}
-
-	for(;i >= 0; i--)
-	{
-		cmd = str_concat_(ptr1[i], "/", argv);
-		struct stat st;
-
-		if ((stat(cmd, &st)) == 0)
-			return (cmd);
-	}
-  return (NULL);
+	free(comand);
+	free(ptr1);
+	return (0);
 }
 
 
@@ -60,4 +59,26 @@ char *_getenv(char *path_name)
 		environ_cursor++;
 	}
 	return (NULL);
+}
+
+
+
+
+
+/**
+ * stat_check - stat check if file can be found.
+ * @ptr: ptr vector:
+ * Return: return 1 if found 0 if not found
+ */
+
+int stat_check_cat(char *ptr)
+{
+	if (access(ptr, F_OK) == 0)
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
 }
