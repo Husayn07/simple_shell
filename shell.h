@@ -20,6 +20,8 @@ char *_getenv(char *path_name);
 char *_strdup(char *str);
 char *str_concat_(char *s1, char *s, char *s2);
 char *get_path(char* argv);
+ssize_t _read(int fd, void *buf, size_t count);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 
 #endif
