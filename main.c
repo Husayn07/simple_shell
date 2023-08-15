@@ -17,8 +17,9 @@ int main(void)
 	int argc;
 	char *argv[MAX];
 	int i;
+	int status = 1;
 
-while(1)
+while(1 && status)
 {
 	/*Display prompt/cmd for exec.*/
 	display_pmt();
@@ -27,6 +28,7 @@ while(1)
 	fflush(stdin);
 	if((getline(&cmd, &n, stdin)) == -1)
 		perror("input failled");
+	status = isatty(STDIN_FILENO);
 	/*create copy of cmd to avoid */
 	cmd1 = _strdup(cmd);
 
