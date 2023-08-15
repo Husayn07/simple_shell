@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 
-#define MAX 10
+#define MAX 25
 char *comand;
 
 extern char **environ;

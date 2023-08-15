@@ -1,4 +1,4 @@
-#include "shell.h" 
+#include "shell.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -10,17 +10,18 @@
  * Return: pointer to part.
  */
 
-int get_path(char* argv)
+int get_path(char *argv)
 {
 	char *ptr = NULL;
-	comand = NULL;
 	char *tok = NULL;
 	int check = 0;
 
+	comand = NULL;
 	ptr = _getenv("PATH");
 	char *ptr1 = _strdup(ptr);
+
 	tok = strtok(ptr1, ":");
-	while(tok)
+	while (tok)
 	{
 		comand = str_concat_(tok, "/", argv);
 		check = stat_check_cat(comand);

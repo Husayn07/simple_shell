@@ -14,9 +14,9 @@ int main(void)
 	char *cmd1 = NULL;
 	size_t n = 1;
 	int check;
-	int argc;
+	int argc = 0;
 	char *argv[MAX];
-	int i;
+	int i = 0;
 	int status = 1;
 
 while(1 && status)
@@ -45,22 +45,22 @@ while(1 && status)
 	else if(check == 1)
 		execute_command(argv[0], argv, environ);
 	i = get_path(argv[0]);
+	printf("%d   \n", i);
 	if(i)
 	{
 		execute_command(comand, argv, environ);
 	}
-	else if(i == 0)
-		perror("command not found");
+	else
+	{
+		/*exit program*/
+		/* need to fix strcmp*/
+		if((strcmp(argv[0], "exit")) == 0)
+			break;
+		if((strcmp(argv[0], "EXIT")) == 0)
+			break;
+	}
 	/*call execution command done*/
-
-
-	/*exit program*/
-	/* need to fix strcmp*/
-	if((strcmp(argv[0], "exit")) == 0)
-		break;
-	if((strcmp(argv[0], "EXIT")) == 0)
-		break;
-
+	free(comand);
 }
 	return (0);
 }
