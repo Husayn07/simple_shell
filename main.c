@@ -8,10 +8,12 @@
  * Return: interger.
  */
 
+int print_f(char *arr[]);
 int main(int argc, char *argv[], char **envp)
 {
 	char *cmd = NULL;
 	char *cmd1 = NULL;
+	char *cmdex[10];
 	size_t n = 0;
 	int i;
 	int check;
@@ -22,6 +24,7 @@ while(1)
 	display_pmt();
 
 	/*get cmd from user*/
+	fflush(stdin);
 	if((getline(&cmd, &n, stdin)) == -1)
 		perror("input failled");
 	/*create copy fomr cmd to avoid */
@@ -29,6 +32,7 @@ while(1)
 
 	/*need to formant user input*/
 	cmd_check(cmd1, &i, argv);
+	cmd_check(cmd1, &i, cmdex);
 	argc = i;
 
 	/*status check*/
@@ -41,12 +45,9 @@ while(1)
 	if(check == 0)
 	{
 		i = get_path(argv[0]);
-		argv[0] = comand;
-		if(comand)
-		{
-		execute_command(argv[0], argv,  envp);
-		}
-		else
+		cmdex[0] = comand;
+		print_f(argv);
+		execute_command(comand, cmdex, envp);
 		perror("comand not found");
 	}
 	/*call execution command done*/
@@ -59,7 +60,6 @@ while(1)
 	if((strcmp(argv[0], "EXIT")) == 0)
 		break;
 
-	free(comand);
 }
 	return (0);
 }

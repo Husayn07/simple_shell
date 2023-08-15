@@ -11,7 +11,6 @@
 #define MAX 10
 char *comand;
 
-
 extern char **environ;
 int stat_check(char *argv[], int argc);
 int cmd_check(char *cmd, int *i, char *argv[]);
