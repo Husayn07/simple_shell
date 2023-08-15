@@ -8,15 +8,15 @@
  * Return: interger.
  */
 
-int print_f(char *arr[]);
-int main(int argc, char *argv[], char **envp)
+int main(void)
 {
 	char *cmd = NULL;
 	char *cmd1 = NULL;
-	char *cmdex[10];
-	size_t n = 0;
-	int i;
+	size_t n = 1;
 	int check;
+	int argc;
+	char *argv[MAX];
+	int i;
 
 while(1)
 {
@@ -27,29 +27,28 @@ while(1)
 	fflush(stdin);
 	if((getline(&cmd, &n, stdin)) == -1)
 		perror("input failled");
-	/*create copy fomr cmd to avoid */
+	/*create copy of cmd to avoid */
 	cmd1 = _strdup(cmd);
 
 	/*need to formant user input*/
-	cmd_check(cmd1, &i, argv);
-	cmd_check(cmd1, &i, cmdex);
-	argc = i;
+	cmd_check(cmd1, &argc, argv);
+	argc++;
+	argv[argc] = NULL;
 
 	/*status check*/
 	/* start execution comannd*/
 	check = stat_check(argv, argc);
 	if(check == 2)
 		continue;
-	if(check == 1)
-		execute_command(argv[0], argv, envp);
-	if(check == 0)
+	else if(check == 1)
+		execute_command(argv[0], argv, environ);
+	i = get_path(argv[0]);
+	if(i)
 	{
-		i = get_path(argv[0]);
-		cmdex[0] = comand;
-		print_f(argv);
-		execute_command(comand, cmdex, envp);
-		perror("comand not found");
+		execute_command(comand, argv, environ);
 	}
+	else if(i == 0)
+		perror("command not found");
 	/*call execution command done*/
 
 

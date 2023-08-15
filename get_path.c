@@ -31,7 +31,6 @@ int get_path(char* argv)
 		}
 		tok = strtok(NULL, ":");
 	}
-	free(comand);
 	free(ptr1);
 	return (0);
 }
@@ -40,23 +39,23 @@ int get_path(char* argv)
 
 char *_getenv(char *path_name)
 {
-	char **environ_cursor, *env_ptr, *name_ptr;
+	char **env_cur, *env_ptr, *nptr;
 
-	environ_cursor = environ;
-	while (*environ_cursor)
+	env_cur = environ;
+	while (*env_cur)
 	{
-		env_ptr = *environ_cursor;
-		name_ptr = path_name;
-		while (*env_ptr == *name_ptr)
+		env_ptr = *env_cur;
+		nptr = path_name;
+		while (*env_ptr == *nptr)
 		{
 			if (*env_ptr == '=')
 				break;
 			env_ptr++;
-			name_ptr++;
+			nptr++;
 		}
-		if ((*env_ptr == '=') && (*name_ptr == '\0'))
+		if ((*env_ptr == '=') && (*nptr == '\0'))
 			return (env_ptr + 1);
-		environ_cursor++;
+		env_cur++;
 	}
 	return (NULL);
 }
