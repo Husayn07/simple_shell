@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <stdarg.h>
 
 #define MAX 25
 char *comand;
@@ -23,6 +24,10 @@ ssize_t _read(int fd, void *buf, size_t count);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int get_path(char* argv);
 int stat_check_cat(char *ptr);
+
+int put_e(char c);
+int  _perror(const char *str, ...);
+
 
 
 #endif

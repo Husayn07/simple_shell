@@ -44,6 +44,7 @@ while (1 && status)
 			break;
 		if ((strcmp(argv[0], "EXIT")) == 0)
 			break;
+		_perror("hsh: no: %s: not found\n", argv[0]);
 	}
 	free(comand);
 }
