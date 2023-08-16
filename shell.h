@@ -27,6 +27,7 @@ int stat_check_cat(char *ptr);
 
 int put_e(char c);
 int  _perror(const char *str, ...);
+int putnum(int x);
 
 
 

@@ -11,7 +11,7 @@ int main(void)
 	char *cmd = NULL;
 	char *cmd1 = NULL;
 	size_t n = 1;
-	int check, argc = 0, i = 0, status = 1;
+	int check, argc = 0, i = 0, status = 1, count = 1;
 	char *argv[MAX];
 
 while (1 && status)
@@ -44,9 +44,10 @@ while (1 && status)
 			break;
 		if ((strcmp(argv[0], "EXIT")) == 0)
 			break;
-		_perror("hsh: no: %s: not found\n", argv[0]);
+		_perror("./hsh: %d: %s: not found\n",count, argv[0]);
 	}
 	free(comand);
+	count++;
 }
 	return (0);
 }

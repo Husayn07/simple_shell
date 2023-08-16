@@ -27,6 +27,10 @@ int _perror(const char *str, ...)
 			}
 			i++;
 		}
+		else if ((str[i] == '%') && (str[++i] == 'd'))
+		{
+			int n = va_arg(arg, int);
+		}
 		char a = str[i];
 		put_e(a);
 		i++;
@@ -46,5 +50,32 @@ int put_e(char c)
 		return (1);
 	else
 		return (0);
+}
+
+/**
+ * putnum - write out formatted integer to strderr
+ * @x: parameter
+ * Return: 1
+ */
+
+int putnum(int x)
+{
+	int y = x, i = 0, t = 1, p = 0;
+	while (x)
+	{
+		i++;
+		x = x/10;
+		t = t*10;
+	}
+	t = t/10;
+	while (i)
+	{
+		p = y/t;
+		p = p%10;
+		put_e(p+48);
+		t = t/10;
+		i--;
+	}
+	return (0);
 }
 
