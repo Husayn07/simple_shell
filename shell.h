@@ -25,6 +25,7 @@ char *_strdup(char *str);
 char *str_concat_(char *s1, char *s, char *s2);
 ssize_t _read(int fd, void *buf, size_t count);
 int get_path(char* argv);
+int _exitcmd(char *argv[]);
 int stat_check_cat(char *ptr);
 
 int put_e(char c);

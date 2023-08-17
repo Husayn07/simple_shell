@@ -1,15 +1,12 @@
 #include "shell.h"
 /**
  * main - main program.
- * @argc
- * @argv
- * @envp
  * Return: interger.
  */
 int main(void)
 {
 	char *cmd = NULL, *cmd1 = NULL;
-	int check, argc = 0, i = 0, status = 1, count = 1;
+	int checks, argc = 0, checkp = 0, status = 1;
 	char *argv[MAX];
 
 while (1 && status)
@@ -25,26 +22,21 @@ while (1 && status)
 	argc++;
 	argv[argc] = NULL;
 
-	check = stat_check(argv, argc);
-	if (check == 2)
+	checks = stat_check(argv, argc);
+	if (checks == 2)
 		continue;
-	else if (check == 1)
+	else if (checks == 1)
 		execute_command(argv[0], argv, environ);
-	i = get_path(argv[0]);
-	if (i)
-	{
+	checkp = get_path(argv[0]);
+	if (checkp)
 		execute_command(comand, argv, environ);
-	}
 	else
 	{
-		if ((strcmp(argv[0], "exit")) == 0)
+		if ((_exitcmd(argv)) == 1)
 			break;
-		if ((strcmp(argv[0], "EXIT")) == 0)
-			break;
-		_perror("./hsh: %d: %s: not found\n",count, argv[0]);
+		_perror("./hsh: %s: not found\n", argv[0]);
 	}
 	free(comand);
-	count++;
 }
 	return (0);
 }
