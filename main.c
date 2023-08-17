@@ -19,8 +19,7 @@ while (1 && status)
 	display_pmt();
 
 	fflush(stdin);
-	if ((getline(&cmd, &n, stdin)) == -1)
-		perror("input failled");
+	_getline(&cmd);
 	status = isatty(STDIN_FILENO);
 	cmd1 = _strdup(cmd);
 

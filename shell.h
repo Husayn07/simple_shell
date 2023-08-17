@@ -17,11 +17,13 @@ int cmd_check(char *cmd, int *i, char *argv[]);
 int display_pmt();
 void execute_command(char *cmd, char *argv[], char *envp[]);
 int _strcmp(char *s1, char *s2);
-char *_getenv(char *path_name); 
+char *_getenv(char *path_name);
+char _getline(char **buff);
+
 char *_strdup(char *str);
+
 char *str_concat_(char *s1, char *s, char *s2);
 ssize_t _read(int fd, void *buf, size_t count);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int get_path(char* argv);
 int stat_check_cat(char *ptr);
 
