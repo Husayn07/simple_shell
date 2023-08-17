@@ -8,9 +8,7 @@
  */
 int main(void)
 {
-	char *cmd = NULL;
-	char *cmd1 = NULL;
-	size_t n = 1;
+	char *cmd = NULL, *cmd1 = NULL;
 	int check, argc = 0, i = 0, status = 1, count = 1;
 	char *argv[MAX];
 

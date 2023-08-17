@@ -1,8 +1,8 @@
 #include "shell.h"
 /**
  *_getline - Read The Input By User From Stdin
- *@buff: pointer to an adresss
- *Return: Input
+ *@buff: pointer to a pointer
+ *Return: EOF
  */
 char _getline(char **buff)
 {
