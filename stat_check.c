@@ -14,11 +14,7 @@ int stat_check(char *argv[], int argc)
 	unsigned int i = 0;
 	struct stat st;
 
-	if (argc == 0)
-	{
-		return (2);
-	}
-	else if (stat(argv[i], &st) == 0)
+	if (stat(argv[i], &st) == 0)
 	{
 		return (1);
 	}

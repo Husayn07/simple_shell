@@ -23,12 +23,12 @@ while (1 && status)
 	argv[argc] = NULL;
 
 	checks = stat_check(argv, argc);
-	if (checks == 2)
+	checkp = get_path(argv[0]);
+	if (argc == 1)
 		continue;
 	else if (checks == 1)
 		execute_command(argv[0], argv, environ);
-	checkp = get_path(argv[0]);
-	if (checkp)
+	else if (checkp)
 		execute_command(comand, argv, environ);
 	else
 	{
@@ -72,7 +72,7 @@ int display_pmt(void)
 
 int cmd_check(char *cmd, int *i, char *argv[])
 {
-	char *delime = (" \n");
+	char *delime = (" ");
 	int a = 0;
 	char *ptkn;
 
