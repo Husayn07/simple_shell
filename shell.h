@@ -1,17 +1,18 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <stdio.h>
-#include <string.h>
 #include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/wait.h>
 #include <stdarg.h>
 
 #define MAX 25
 char *comand;
-
 extern char **environ;
+
+
 int stat_check(char *argv[], int argc);
 int cmd_check(char *cmd, int *i, char *argv[]);
 int display_pmt();
@@ -33,5 +34,6 @@ int  _perror(const char *str, ...);
 int putnum(int x);
 
 
+char *_strtok(char *str, const char *delim);
 
 #endif

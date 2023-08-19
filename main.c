@@ -76,12 +76,12 @@ int cmd_check(char *cmd, int *i, char *argv[])
 	int a = 0;
 	char *ptkn;
 
-	ptkn = strtok(cmd, delime);
+	ptkn = _strtok(cmd, delime);
 	argv[a] = ptkn;
 
 	while (ptkn)
 	{
-		ptkn = strtok(NULL, delime);
+		ptkn = _strtok(NULL, delime);
 		a++;
 		argv[a] = ptkn;
 	/*printf("%s\n", ptr[a]);*/

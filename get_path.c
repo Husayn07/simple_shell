@@ -20,7 +20,7 @@ int get_path(char *argv)
 	ptr = _getenv("PATH");
 	char *ptr1 = _strdup(ptr);
 
-	tok = strtok(ptr1, ":");
+	tok = _strtok(ptr1, ":");
 	while (tok)
 	{
 		comand = str_concat_(tok, "/", argv);
@@ -30,7 +30,7 @@ int get_path(char *argv)
 			free(ptr1);
 			return (1);
 		}
-		tok = strtok(NULL, ":");
+		tok = _strtok(NULL, ":");
 	}
 	free(ptr1);
 	return (0);
