@@ -21,7 +21,7 @@ char *_strtok(char *str, const char *delim)
 	{
 		return (NULL);
 	}
-	while (*n_tk != '\0' && strchr(delim, *n_tk) != NULL)
+	while (*n_tk != '\0' && _strchr(delim, *n_tk) != NULL)
 	{
 		n_tk++;
 	}
@@ -31,7 +31,7 @@ char *_strtok(char *str, const char *delim)
 		return (NULL);
 	}
 	curr = n_tk;
-	while (*n_tk != '\0' && strchr(delim, *n_tk) == NULL)
+	while (*n_tk != '\0' && _strchr(delim, *n_tk) == NULL)
 	{
 		n_tk++;
 	}
