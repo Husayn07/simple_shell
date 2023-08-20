@@ -19,7 +19,7 @@ int display_pmt(void);
 void execute_command(char *cmd, char *argv[], char *envp[]);
 int _strcmp(char *s1, char *s2);
 char *_getenv(char *path_name);
-char _getline(char **buff);
+int _getline(char **buff);
 
 char *_strdup(char *str);
 
