@@ -1,64 +1,41 @@
 #include "shell.h"
-
 /**
  * main - main program.
- * @argc
- * @argv
- * @envp
  * Return: interger.
  */
-
-int main(int argc, char *argv[], char **envp)
+int main(void)
 {
-	char *cmd = NULL;
-	char *cmd1 = NULL;
-	size_t n = 0;
-	int i;
-	int check;
+	char *cmd = NULL, *cmd1 = NULL;
+	int checks, argc = 0, checkp = 0, status = 1;
+	char *argv[MAX];
 
-while(1)
+while (1 && status)
 {
-	/*Display prompt/cmd for exec.*/
 	display_pmt();
 
-	/*get cmd from user*/
-	if((getline(&cmd, &n, stdin)) == -1)
-		perror("input failled");
-	/*create copy fomr cmd to avoid */
+	fflush(stdin);
+	_getline(&cmd);
+	status = isatty(STDIN_FILENO);
 	cmd1 = _strdup(cmd);
 
-	/*need to formant user input*/
-	cmd_check(cmd1, &i, argv);
-	argc = i;
+	cmd_check(cmd1, &argc, argv);
+	argc++;
+	argv[argc] = NULL;
 
-	/*status check*/
-	/* start execution comannd*/
-	check = stat_check(argv, argc);
-	if(check == 2)
+	checks = stat_check(argv, argc);
+	if (checks == 2)
 		continue;
-	if(check == 1)
-		execute_command(argv[0], argv, envp);
-	if(check == 0)
+	else if (checks == 1)
+		execute_command(argv[0], argv, environ);
+	checkp = get_path(argv[0]);
+	if (checkp)
+		execute_command(comand, argv, environ);
+	else
 	{
-		i = get_path(argv[0]);
-		argv[0] = comand;
-		if(comand)
-		{
-		execute_command(argv[0], argv,  envp);
-		}
-		else
-		perror("comand not found");
+		if ((_exitcmd(argv)) == 1)
+			break;
+		_perror("./hsh: %s: not found\n", argv[0]);
 	}
-	/*call execution command done*/
-
-
-	/*exit program*/
-	/* need to fix strcmp*/
-	if((strcmp(argv[0], "exit")) == 0)
-		break;
-	if((strcmp(argv[0], "EXIT")) == 0)
-		break;
-
 	free(comand);
 }
 	return (0);
@@ -70,25 +47,27 @@ while(1)
  *
  * Return: 1 | 0 if sucessfull or failed
  */
-int display_pmt()
+int display_pmt(void)
 {
 	char c = '$';
 	char d = '/';
+
 	if (c)
 	{
-		write(1, &d,1);
-		write(1, &c,1);
+		write(1, &d, 1);
+		write(1, &c, 1);
 		return (1);
 	}
 	else
-		return(0);
+		return (0);
 }
 
 /**
  * cmd_check - check and format cmd input
  *@cmd: cmd input from user
- * 
- * Return: return int number of argumment and cmd input by the user
+ *@i: address of parameter i
+ *@argv: array of fuction.
+ *Return: return int number of argumment and cmd input by the user
  */
 
 int cmd_check(char *cmd, int *i, char *argv[])
@@ -100,7 +79,7 @@ int cmd_check(char *cmd, int *i, char *argv[])
 	ptkn = strtok(cmd, delime);
 	argv[a] = ptkn;
 
-	while(ptkn)
+	while (ptkn)
 	{
 		ptkn = strtok(NULL, delime);
 		a++;
@@ -117,6 +96,8 @@ int cmd_check(char *cmd, int *i, char *argv[])
  * execute_command - Execute a command.
  * @argv: arg vector
  * @envp: environ variable
+ * @cmd: take the argv[0]
+ * Return: Void.
  */
 void execute_command(char *cmd, char *argv[], char *envp[])
 {
