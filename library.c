@@ -98,3 +98,25 @@ char *str_concat_(char *s1, char *s, char *s2)
 	conct[i] = '\0';
 	return (conct);
 }
+
+
+/**
+ *_strchr - Checks If A Character Match Any Char
+ *@character: Character To Check
+ *@str: String To Check
+ *Return: Address Succes, NULL Failed
+ */
+
+char *_strchr(const char *str, int character)
+{
+	while (*str != '\0')
+	{
+		if (*str == character)
+		{
+			return ((char *)str);
+		}
+		str++;
+	}
+	return (NULL);
+}
+

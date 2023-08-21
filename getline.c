@@ -2,9 +2,9 @@
 /**
  *_getline - Read The Input By User From Stdin
  *@buff: pointer to a pointer
- *Return: EOF
+ *Return: 1 on success | 0 on faliure
  */
-char _getline(char **buff)
+int _getline(char **buff)
 {
 	int i, buffsize = sizeof(char);
 	char c = 0;
@@ -12,7 +12,7 @@ char _getline(char **buff)
 	*buff = (char *)malloc(buffsize);
 	if (*buff == NULL)
 	{
-		return ('\n');
+		return (0);
 	}
 	for (i = 0; c != '\n'; i++)
 	{
@@ -21,7 +21,7 @@ char _getline(char **buff)
 		if (c == '\n')
 		{
 			(*buff)[i] = '\0';
-			return (EOF);
+			return (1);
 		}
 		else
 		(*buff)[i] = c;
@@ -31,5 +31,5 @@ char _getline(char **buff)
 		}
 	}
 	(*buff)[i] = '\0';
-	return (EOF);
+	return (1);
 }

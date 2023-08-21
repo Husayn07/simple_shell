@@ -46,7 +46,7 @@ int _perror(const char *str, ...)
 
 int put_e(char c)
 {
-	if ((write(2, &c, sizeof(char)))== 0)
+	if ((write(STDERR_FILENO, &c, sizeof(char)))== 0)
 		return (1);
 	else
 		return (0);
