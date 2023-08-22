@@ -15,10 +15,10 @@ int get_path(char *argv)
 	char *ptr = NULL;
 	char *tok = NULL;
 	int check = 0;
+	char *ptr1 = _strdup(ptr);
 
 	comand = NULL;
 	ptr = _getenv("PATH");
-	char *ptr1 = _strdup(ptr);
 
 	tok = _strtok(ptr1, ":");
 	while (tok)

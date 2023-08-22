@@ -9,7 +9,7 @@
  * Return: return 1 if found 0 if not found
  */
 
-int stat_check(char *argv[], int argc)
+int stat_check(char *argv[])
 {
 	unsigned int i = 0;
 	struct stat st;

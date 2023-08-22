@@ -7,16 +7,16 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <stdarg.h>
+#include <errno.h>
 
 #define MAX 25
 char *comand;
 extern char **environ;
 
-
-int stat_check(char *argv[], int argc);
+void execute_command(char *cmd, char *argv[], char *envp[]);
+int stat_check(char *argv[]);
 int cmd_check(char *cmd, int *i, char *argv[]);
 int display_pmt(void);
-void execute_command(char *cmd, char *argv[], char *envp[]);
 int _strcmp(char *s1, char *s2);
 char *_getenv(char *path_name);
 int _getline(char **buff);
@@ -37,4 +37,6 @@ int putnum(int x);
 char *_strtok(char *str, const char *delim);
 
 char *_strchr(const char *str, int character);
+int _cd(char **args);
+
 #endif

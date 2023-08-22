@@ -10,9 +10,10 @@ int put_e(char c);
 int _perror(const char *str, ...)
 {
 	va_list arg;
-	va_start(arg, str);
+int i = 0;
+char a = str[i];
 
-	int i = 0;
+	va_start(arg, str);
 	while(str[i])
 	{
 		if ((str[i] == '%') && (str[++i] == 's'))
@@ -29,9 +30,6 @@ int _perror(const char *str, ...)
 		}
 		else if ((str[i] == '%') && (str[++i] == 'd'))
 		{
-			int n = va_arg(arg, int);
-		}
-		char a = str[i];
 		put_e(a);
 		i++;
 	}
