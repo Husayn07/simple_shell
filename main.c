@@ -1,11 +1,12 @@
 #include "shell.h"
 /**
- * main - main program.
- * Return: interger.
+* main - main program.
+* Return: interger.
  */
+extern char *comand;
 int main(void)
 {
-	char *cmd = NULL, *cmd1 = NULL;
+	char *cmd = NULL, *cmd1 = NULL, *comand = NULL;
 	int checks, argc = 0, checkp = 0, status = 1;
 	char *argv[MAX];
 

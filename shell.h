@@ -9,7 +9,6 @@
 #include <stdarg.h>
 
 #define MAX 25
-char *comand;
 extern char **environ;
 
 

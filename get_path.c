@@ -10,6 +10,8 @@
  * Return: 1 on sucess | 0 on faliure
  */
 
+char *comand;
+
 int get_path(char *argv)
 {
 	char *ptr = NULL;
