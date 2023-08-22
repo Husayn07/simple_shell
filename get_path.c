@@ -10,21 +10,21 @@
  * Return: 1 on sucess | 0 on faliure
  */
 
-int get_path(char *argv)
+int get_path(char *argv, char **comand)
 {
 	char *ptr = NULL;
 	char *tok = NULL;
 	int check = 0;
 	char *ptr1 = _strdup(ptr);
 
-	comand = NULL;
+	*comand = NULL;
 	ptr = _getenv("PATH");
 
 	tok = _strtok(ptr1, ":");
 	while (tok)
 	{
-		comand = str_concat_(tok, "/", argv);
-		check = stat_check_cat(comand);
+		*comand = str_concat_(tok, "/", argv);
+		check = stat_check_cat(*comand);
 		if (check == 1)
 		{
 			free(ptr1);

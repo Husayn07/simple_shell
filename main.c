@@ -1,11 +1,12 @@
 #include "shell.h"
 /**
- * main - main program.
- * Return: interger.
+* main - main program.
+* Return: interger.
  */
+extern char *comand;
 int main(void)
 {
-	char *cmd = NULL, *cmd1 = NULL;
+	char *cmd = NULL, *cmd1 = NULL, *comand;
 	int checks, argc = 0, checkp = 0, status = 1;
 	char *argv[MAX];
 
@@ -23,7 +24,7 @@ while (1 && status)
 	argv[argc] = NULL;
 
 	checks = stat_check(argv, argc);
-	checkp = get_path(argv[0]);
+	checkp = get_path(argv[0], &comand);
 	if (argc == 1)
 		continue;
 	else if (checks == 1)
