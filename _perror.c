@@ -1,79 +1,81 @@
 #include "shell.h"
+#include <stdarg.h>
 
 /**
- * _perror - a function that print formatted test to stderr
- * @str: a string const
- * Return: 1 if succesfull 0 if failled.
+ * put_e - Writes a character into stderr
+ * @c: Char argument
+ * Return: 1 if successful, 0 if failed
  */
-
-int put_e(char c);
-int _perror(const char *str, ...)
-{
-	va_list arg;
-int i = 0;
-char a = str[i];
-
-	va_start(arg, str);
-	while(str[i])
-	{
-		if ((str[i] == '%') && (str[++i] == 's'))
-		{
-			char *arr = va_arg(arg, char *);
-			int b = 0;
-			while (arr[b])
-			{
-				char s = arr[b];
-				put_e(s);
-				b++;
-			}
-			i++;
-		}
-		else if ((str[i] == '%') && (str[++i] == 'd'))
-		{
-		put_e(a);
-		i++;
-	}
-	va_end(arg);
-}
-
-/**
- * put_e - write a charater into stderr
- * @c: char argument
- * Return: 1 if successful | 0 failled
- */
-
 int put_e(char c)
 {
-	if ((write(STDERR_FILENO, &c, sizeof(char)))== 0)
-		return (1);
-	else
-		return (0);
+    if (write(STDERR_FILENO, &c, sizeof(char)) == -1)
+        return 0;
+    return 1;
 }
 
 /**
- * putnum - write out formatted integer to strderr
- * @x: parameter
+ * putnum - Writes out a formatted integer to stderr
+ * @x: Parameter
  * Return: 1
  */
-
 int putnum(int x)
 {
-	int y = x, i = 0, t = 1, p = 0;
-	while (x)
-	{
-		i++;
-		x = x/10;
-		t = t*10;
-	}
-	t = t/10;
-	while (i)
-	{
-		p = y/t;
-		p = p%10;
-		put_e(p+48);
-		t = t/10;
-		i--;
-	}
-	return (0);
+    int y = x, i = 0, t = 1, p = 0;
+
+    while (x)
+    {
+        i++;
+        x = x / 10;
+        t = t * 10;
+    }
+    t = t / 10;
+    while (i)
+    {
+        p = y / t;
+        p = p % 10;
+        put_e(p + '0');
+        t = t / 10;
+        i--;
+    }
+    return 1;
 }
 
+/**
+ * _perror - Prints formatted text to stderr
+ * @str: A string const
+ * Return: 1 if successful, 0 if failed.
+ */
+int _perror(const char *str, ...)
+{
+    va_list arg;
+    int i = 0;
+
+    va_start(arg, str);
+    while (str[i])
+    {
+        if ((str[i] == '%') && (str[++i] == 's'))
+        {
+            char *arr = va_arg(arg, char *);
+            int b = 0;
+            while (arr[b])
+            {
+                put_e(arr[b]);
+                b++;
+            }
+            i++;
+        }
+        else if ((str[i] == '%') && (str[++i] == 'd'))
+        {
+            int num = va_arg(arg, int);
+            putnum(num);
+            i++;
+        }
+        else
+        {
+            put_e(str[i]);
+            i++;
+        }
+    }
+    va_end(arg);
+    return 1;
+}
