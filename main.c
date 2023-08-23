@@ -6,15 +6,15 @@
 int main(void)
 {
 	char *cmd = NULL, *cmd1 = NULL, *comand;
-	int checks, argc = 0, checkp = 0, status = 1;
+	int checks, argc = 0, checkp = 0, status = 1, n = 1;
 	char *argv[MAX];
-	static int n = 1;
+	size_t b = 1;
 
 while (1 && status)
 {
 	display_pmt();
-	_getline(&cmd);
-	status = isatty(STDIN_FILENO);
+	getline(&cmd, &b, stdin);
+	status = isstatus();
 	cmd1 = _strdup(cmd);
 
 	cmd_check(cmd1, &argc, argv);
@@ -23,7 +23,7 @@ while (1 && status)
 
 	checks = stat_check(argv);
 	checkp = get_path(argv[0], &comand);
-	if (argc == 1)
+	if (argc == 1 && ++n)
 		continue;
 	else if (checks == 1)
 		execute_command(argv[0], argv, environ);
@@ -56,6 +56,7 @@ int display_pmt(void)
 	{
 		write(1, &d, 1);
 		write(1, &c, 1);
+		write(1, "\n", 1);
 		return (1);
 	}
 	else
@@ -119,6 +120,16 @@ void execute_command(char *cmd, char *argv[], char *envp[])
 	}
 	else
 	{
-		wait(NULL);
+		int status;
+		waitpid(pid, &status, 0);
 	}
+}
+/**
+ * isstatus - check stdin and stdout.
+ *Return: 1|0 
+ */
+
+int isstatus(void)
+{
+	return isatty(STDIN_FILENO) && isatty(STDOUT_FILENO);
 }

@@ -18,6 +18,7 @@ int display_pmt(void);
 void execute_command(char *cmd, char *argv[], char *envp[]);
 int _strcmp(char *s1, char *s2);
 char *_getenv(char *path_name);
+int isstatus(void);
 int _getline(char **buff);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
