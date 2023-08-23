@@ -122,15 +122,16 @@ void execute_command(char *cmd, char *argv[], char *envp[])
 	else
 	{
 		int status;
+
 		waitpid(pid, &status, 0);
 	}
 }
 /**
  * isstatus - check stdin and stdout.
- *Return: 1|0 
+ *Return: 1|0
  */
 
 int isstatus(void)
 {
-	return isatty(STDIN_FILENO) && isatty(STDOUT_FILENO);
+	return (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO));
 }
