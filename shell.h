@@ -8,7 +8,7 @@
 #include <sys/wait.h>
 #include <stdarg.h>
 
-#define MAX 25
+#define MAX 100
 extern char **environ;
 
 

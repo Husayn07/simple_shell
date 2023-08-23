@@ -6,23 +6,24 @@
 int main(void)
 {
 	char *cmd = NULL, *cmd1 = NULL, *comand;
-	int checks, argc = 0, checkp = 0, status = 1, n = 1;
+	int checks, argc = 0, checkp = 0, n = 1;
 	char *argv[MAX];
 	size_t b = 1;
+	ssize_t bytes_read = 1;
 
-while (1 && status)
+while (1)
 {
-	display_pmt();
-	getline(&cmd, &b, stdin);
-	status = isstatus();
-	if (!status)
-		write(1, "\n", 1);
+	if (isstatus())
+		display_pmt();
+	bytes_read = getline(&cmd, &b, stdin);
+	if (bytes_read == -1)
+		break;
+	if (bytes_read > 1 && cmd[bytes_read - 1] == '\n')
+		cmd[bytes_read - 1] = '\0';
 	cmd1 = _strdup(cmd);
-
 	cmd_check(cmd1, &argc, argv);
 	argc++;
 	argv[argc] = NULL;
-
 	checks = stat_check(argv);
 	checkp = get_path(argv[0], &comand);
 	if (argc == 1 && ++n)
