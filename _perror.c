@@ -7,11 +7,11 @@
  */
 int _perror(const char *str, ...)
 {
-	va_list arg;
-	va_start(arg, str);
-
-	int printed_chars = 0;
 	const char *ptr = str;
+	int printed_chars = 0;
+	va_list arg;
+
+	va_start(arg, str);
 
 	while (*ptr != '\0')
 	{
@@ -21,17 +21,18 @@ int _perror(const char *str, ...)
 			if (*ptr == 's')
 			{
 				char *arr = va_arg(arg, char *);
+
 				while (*arr != '\0')
 				{
 					put_e(*arr);
 					arr++;
 					printed_chars++;
-				}
-				ptr++;
+				} ptr++;
 			}
 			else if (*ptr == 'd')
 			{
 				int num = va_arg(arg, int);
+
 				printed_chars += putnum(num);
 				ptr++;
 			}
@@ -40,11 +41,10 @@ int _perror(const char *str, ...)
 		{
 			put_e(*ptr);
 			printed_chars++;
-		}
-		ptr++;
+		} ptr++;
 	}
 	va_end(arg);
-	return printed_chars;
+	return (printed_chars);
 }
 
 
@@ -72,37 +72,36 @@ int put_e(char c)
 
 int putnum(int x)
 {
-	int printed_chars = 0;
+	int printed_chars = 0, num_digits, i, temp;
+	char digits[10];
 
 	if (x == 0)
 	{
 		put_e('0');
 		return (1);
-		  }
+	}
 	else if (x < 0)
 	{
 		put_e('-');
 		x = -x;
 		printed_chars++;
 	}
-	int num_digits = 0;
-	int temp = x;
-
+	num_digits = 0;
+	temp = x;
 	while (temp > 0)
 	{
 		temp /= 10;
 		num_digits++;
 	}
 
-	char digits[num_digits];
-	for (int i = num_digits - 1; i >= 0; i--)
+	for (i = num_digits - 1; i >= 0; i--)
 	{
 		digits[i] = (x % 10) + '0';
 		x /= 10;
 	}
-	for (int i = 0; i < num_digits; i++)
+	for (i = 0; i < num_digits; i++)
 	{
 		printed_chars += put_e(digits[i]);
 	}
-	return printed_chars;
+	return (printed_chars);
 }
