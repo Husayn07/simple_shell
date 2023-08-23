@@ -8,13 +8,13 @@ int main(void)
 	char *cmd = NULL, *cmd1 = NULL, *comand;
 	int checks, argc = 0, checkp = 0, status = 1;
 	char *argv[MAX];
+	size_t n = 1;
 
 while (1 && status)
 {
 	display_pmt();
 
-	fflush(stdin);
-	_getline(&cmd);
+	getline(&cmd, &n, stdin);
 	status = isatty(STDIN_FILENO);
 	cmd1 = _strdup(cmd);
 
