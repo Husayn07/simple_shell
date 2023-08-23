@@ -7,6 +7,7 @@
  * Return: 1 if successful, 0 if failed
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 int put_e(char c)
 {
     if (write(STDERR_FILENO, &c, sizeof(char)) == -1)
@@ -15,47 +16,56 @@ int put_e(char c)
 =======
 
 
+=======
+>>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 int _perror(const char *str, ...)
 {
+	const char *ptr = str;
+	int printed_chars = 0;
 	va_list arg;
-
-	int i;
-	char a;
 
 	va_start(arg, str);
 
-
-	i = 0;
-	while (str[i])
+	while (*ptr != '\0')
 	{
-		if ((str[i] == '%') && (str[++i] == 's'))
+		if (*ptr == '%')
 		{
-			char *arr = va_arg(arg, char *);
-
-			int b = 0;
-
-			while (arr[b])
+			ptr++;
+			if (*ptr == 's')
 			{
-				char s = arr[b];
+				char *arr = va_arg(arg, char *);
 
-				put_e(s);
-				b++;
+				while (*arr != '\0')
+				{
+					put_e(*arr);
+					arr++;
+					printed_chars++;
+				} ptr++;
 			}
-			i++;
-		}
-		else if ((str[i] == '%') && (str[++i] == 'd'))
-		{
-		}
+			else if (*ptr == 'd')
+			{
+				int num = va_arg(arg, int);
 
-		a = str[i];
-		put_e(a);
-		i++;
+				printed_chars += putnum(num);
+				ptr++;
+			}
+		}
+		else
+		{
+			put_e(*ptr);
+			printed_chars++;
+		} ptr++;
 	}
 	va_end(arg);
+<<<<<<< HEAD
 
 	return (0);
 >>>>>>> 08166b44cf598315666d741b71509f85df337302
+=======
+	return (printed_chars);
+>>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 }
+
 
 /**
  * putnum - Writes out a formatted integer to stderr
@@ -64,6 +74,7 @@ int _perror(const char *str, ...)
  */
 int putnum(int x)
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
     int y = x, i = 0, t = 1, p = 0;
 
@@ -89,6 +100,14 @@ int putnum(int x)
 	else
 		return (0);
 >>>>>>> 08166b44cf598315666d741b71509f85df337302
+=======
+	if (write(STDERR_FILENO, &c, sizeof(char)) == -1)
+	{
+		perror("write");
+		return (0);
+	}
+	return (1);
+>>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 }
 
 /**
@@ -99,26 +118,35 @@ int putnum(int x)
 int _perror(const char *str, ...)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     va_list arg;
     int i = 0;
 =======
 	int y = x, i = 0, t = 1, p = 0;
+=======
+	int printed_chars = 0, num_digits, i, temp;
+	char digits[10];
+>>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 
-	while (x)
+	if (x == 0)
 	{
-		i++;
-		x = x / 10;
-		t = t * 10;
+		put_e('0');
+		return (1);
 	}
-	t = t / 10;
-	while (i)
+	else if (x < 0)
 	{
-		p = y / t;
-		p = p % 10;
-		put_e(p + 48);
-		t = t / 10;
-		i--;
+		put_e('-');
+		x = -x;
+		printed_chars++;
 	}
+	num_digits = 0;
+	temp = x;
+	while (temp > 0)
+	{
+		temp /= 10;
+		num_digits++;
+	}
+<<<<<<< HEAD
 	return (0);
 }
 >>>>>>> 08166b44cf598315666d741b71509f85df337302
@@ -151,4 +179,17 @@ int _perror(const char *str, ...)
     }
     va_end(arg);
     return 1;
+=======
+
+	for (i = num_digits - 1; i >= 0; i--)
+	{
+		digits[i] = (x % 10) + '0';
+		x /= 10;
+	}
+	for (i = 0; i < num_digits; i++)
+	{
+		printed_chars += put_e(digits[i]);
+	}
+	return (printed_chars);
+>>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 }

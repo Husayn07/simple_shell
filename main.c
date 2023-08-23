@@ -8,16 +8,15 @@
 int main(void)
 {
 	char *cmd = NULL, *cmd1 = NULL, *comand;
-	int checks, argc = 0, checkp = 0, status = 1;
+	int checks, argc = 0, checkp = 0, status = 1, n = 1;
 	char *argv[MAX];
-	size_t n = 1;
+	size_t b = 1;
 
 while (1 && status)
 {
 	display_pmt();
-
-	getline(&cmd, &n, stdin);
-	status = isatty(STDIN_FILENO);
+	getline(&cmd, &b, stdin);
+	status = isstatus();
 	cmd1 = _strdup(cmd);
 
 	cmd_check(cmd1, &argc, argv);
@@ -26,7 +25,7 @@ while (1 && status)
 
 	checks = stat_check(argv);
 	checkp = get_path(argv[0], &comand);
-	if (argc == 1)
+	if (argc == 1 && ++n)
 		continue;
 	else if (checks == 1)
 		execute_command(argv[0], argv, environ);
@@ -36,9 +35,10 @@ while (1 && status)
 	{
 		if ((_exitcmd(argv)) == 1)
 			break;
-		_perror("./hsh: %s: not found\n", argv[0]);
+		_perror("./hsh: %d : %s : not found\n", n, argv[0]);
 	}
 	free(comand);
+	n++;
 }
 	return (0);
 }
@@ -48,7 +48,34 @@ while (1 && status)
 /**
  * main - Entry point of the simple shell program
  *
+<<<<<<< HEAD
  * Return: Always returns 0
+=======
+ * Return: 1 | 0 if sucessfull or failed
+ */
+int display_pmt(void)
+{
+	char c = '$';
+	char d = '/';
+
+	if (c)
+	{
+		write(1, &d, 1);
+		write(1, &c, 1);
+		write(1, "\n", 1);
+		return (1);
+	}
+	else
+		return (0);
+}
+
+/**
+ * cmd_check - check and format cmd input
+ *@cmd: cmd input from user
+ *@i: address of parameter i
+ *@argv: array of fuction.
+ *Return: return int number of argumment and cmd input by the user
+>>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
  */
 <<<<<<< HEAD
 int main(void)
@@ -93,6 +120,7 @@ void execute_command(char *cmd, char *argv[], char *envp[])
     char *args[2];
     int i = 0;
 
+<<<<<<< HEAD
     while (1)
     {
         printf("$ ");
@@ -128,4 +156,34 @@ void execute_command(char *cmd, char *argv[], char *envp[])
 
     free(line);
     return (0);
+=======
+	if (pid == -1)
+	{
+		perror("Fork failed");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		/*child process*/
+		if (execve(cmd, argv, envp) == -1)
+		{
+			perror("Command execution failed");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		int status;
+		waitpid(pid, &status, 0);
+	}
+>>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
+}
+/**
+ * isstatus - check stdin and stdout.
+ *Return: 1|0 
+ */
+
+int isstatus(void)
+{
+	return isatty(STDIN_FILENO) && isatty(STDOUT_FILENO);
 }
