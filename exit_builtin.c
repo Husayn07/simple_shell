@@ -2,8 +2,8 @@
 
 /**
  * _exitcmd - exit command line interface
- * @agrv: vector parameter
- * Return 1 on sucesss | 0 on faliure
+ * @argv: vector parameter
+ * Return: 1 on sucesss | 0 on faliure
  */
 
 int _exitcmd(char *argv[])

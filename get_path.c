@@ -7,6 +7,7 @@
 /**
  * get_path - a function that locate the path to a file in the environ.
  * @argv: vector array pointer to strings
+ * @comand: parameter.
  * Return: 1 on sucess | 0 on faliure
  */
 

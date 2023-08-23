@@ -3,7 +3,6 @@
 * main - main program.
 * Return: interger.
  */
-extern char *comand;
 int main(void)
 {
 	char *cmd = NULL, *cmd1 = NULL, *comand;
