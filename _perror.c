@@ -5,48 +5,48 @@
  * @str: a string const
  * Return: 1 if succesfull 0 if failled.
  */
-
-
 int _perror(const char *str, ...)
 {
 	va_list arg;
-
-	int i;
-	char a;
-
 	va_start(arg, str);
 
+	int printed_chars = 0;
+	const char *ptr = str;
 
-	i = 0;
-	while (str[i])
+	while (*ptr != '\0')
 	{
-		if ((str[i] == '%') && (str[++i] == 's'))
+		if (*ptr == '%')
 		{
-			char *arr = va_arg(arg, char *);
-
-			int b = 0;
-
-			while (arr[b])
+			ptr++;
+			if (*ptr == 's')
 			{
-				char s = arr[b];
-
-				put_e(s);
-				b++;
+				char *arr = va_arg(arg, char *);
+				while (*arr != '\0')
+				{
+					put_e(*arr);
+					arr++;
+					printed_chars++;
+				}
+				ptr++;
 			}
-			i++;
+			else if (*ptr == 'd')
+			{
+				int num = va_arg(arg, int);
+				printed_chars += putnum(num);
+				ptr++;
+			}
 		}
-		else if ((str[i] == '%') && (str[++i] == 'd'))
+		else
 		{
+			put_e(*ptr);
+			printed_chars++;
 		}
-
-		a = str[i];
-		put_e(a);
-		i++;
+		ptr++;
 	}
 	va_end(arg);
-
-	return (0);
+	return printed_chars;
 }
+
 
 /**
  * put_e - write a charater into stderr
@@ -56,10 +56,12 @@ int _perror(const char *str, ...)
 
 int put_e(char c)
 {
-	if ((write(STDERR_FILENO, &c, sizeof(char))) == 0)
-		return (1);
-	else
+	if (write(STDERR_FILENO, &c, sizeof(char)) == -1)
+	{
+		perror("write");
 		return (0);
+	}
+	return (1);
 }
 
 /**
@@ -70,23 +72,37 @@ int put_e(char c)
 
 int putnum(int x)
 {
-	int y = x, i = 0, t = 1, p = 0;
+	int printed_chars = 0;
 
-	while (x)
+	if (x == 0)
 	{
-		i++;
-		x = x / 10;
-		t = t * 10;
-	}
-	t = t / 10;
-	while (i)
+		put_e('0');
+		return (1);
+		  }
+	else if (x < 0)
 	{
-		p = y / t;
-		p = p % 10;
-		put_e(p + 48);
-		t = t / 10;
-		i--;
+		put_e('-');
+		x = -x;
+		printed_chars++;
 	}
-	return (0);
+	int num_digits = 0;
+	int temp = x;
+
+	while (temp > 0)
+	{
+		temp /= 10;
+		num_digits++;
+	}
+
+	char digits[num_digits];
+	for (int i = num_digits - 1; i >= 0; i--)
+	{
+		digits[i] = (x % 10) + '0';
+		x /= 10;
+	}
+	for (int i = 0; i < num_digits; i++)
+	{
+		printed_chars += put_e(digits[i]);
+	}
+	return printed_chars;
 }
-

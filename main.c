@@ -8,13 +8,12 @@ int main(void)
 	char *cmd = NULL, *cmd1 = NULL, *comand;
 	int checks, argc = 0, checkp = 0, status = 1;
 	char *argv[MAX];
-	size_t n = 1;
+	static int n = 1;
 
 while (1 && status)
 {
 	display_pmt();
-
-	getline(&cmd, &n, stdin);
+	_getline(&cmd);
 	status = isatty(STDIN_FILENO);
 	cmd1 = _strdup(cmd);
 
@@ -34,9 +33,10 @@ while (1 && status)
 	{
 		if ((_exitcmd(argv)) == 1)
 			break;
-		_perror("./hsh: %s: not found\n", argv[0]);
+		_perror("./hsh: %d : %s : not found\n", n, argv[0]);
 	}
 	free(comand);
+	n++;
 }
 	return (0);
 }
