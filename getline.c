@@ -16,7 +16,6 @@ int _getline(char **buff)
 	}
 	for (i = 0; c != '\n'; i++)
 	{
-		fflush(stdin);
 		read(STDIN_FILENO, &c, sizeof(char));
 		if (c == '\n')
 		{

@@ -14,12 +14,18 @@
 
 extern char **environ;
 
+<<<<<<< HEAD
 void execute_command(char *cmd, char *argv[]);
+=======
+int stat_check(char *argv[]);
+int cmd_check(char *cmd, int *i, char *argv[]);
+>>>>>>> 08166b44cf598315666d741b71509f85df337302
 int display_pmt(void);
 int cmd_check(char *cmd, int *i, char *argv[]);
 int _strcmp(char *s1, char *s2);
 char *_getenv(char *path_name);
 int _getline(char **buff);
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
 char *_strdup(char *str);
 

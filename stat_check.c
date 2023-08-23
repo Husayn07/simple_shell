@@ -5,7 +5,6 @@
 /**
  * stat_check - stat check if file can be found.
  * @argv: arg vector:
- * @argc: arg count:
  * Return: return 1 if found 0 if not found
  */
 

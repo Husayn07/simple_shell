@@ -7,18 +7,24 @@
 /**
  * get_path - a function that locate the path to a file in the environ.
  * @argv: vector array pointer to strings
+ * @comand: parameter.
  * Return: 1 on sucess | 0 on faliure
  */
 
 int get_path(char *argv, char **comand)
 {
 	char *ptr = NULL;
+	char *ptr1 = NULL;
 	char *tok = NULL;
 	int check = 0;
 	char *ptr1 = _strdup(ptr);
 
 	*comand = NULL;
 	ptr = _getenv("PATH");
+<<<<<<< HEAD
+=======
+	ptr1 = _strdup(ptr);
+>>>>>>> 08166b44cf598315666d741b71509f85df337302
 
 	tok = _strtok(ptr1, ":");
 	while (tok)
