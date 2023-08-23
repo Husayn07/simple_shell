@@ -15,6 +15,8 @@ while (1 && status)
 	display_pmt();
 	getline(&cmd, &b, stdin);
 	status = isstatus();
+	if (!status)
+		write(1, "\n", 1);
 	cmd1 = _strdup(cmd);
 
 	cmd_check(cmd1, &argc, argv);
@@ -56,7 +58,6 @@ int display_pmt(void)
 	{
 		write(1, &d, 1);
 		write(1, &c, 1);
-		write(1, "\n", 1);
 		return (1);
 	}
 	else
