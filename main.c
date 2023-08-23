@@ -72,7 +72,7 @@ int display_pmt(void)
 
 int cmd_check(char *cmd, int *i, char *argv[])
 {
-	char *delime = (" ");
+	char *delime = (" \n");
 	int a = 0;
 	char *ptkn;
 
