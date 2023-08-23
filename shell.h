@@ -12,7 +12,7 @@
 extern char **environ;
 
 
-int stat_check(char *argv[], int argc);
+int stat_check(char *argv[]);
 int cmd_check(char *cmd, int *i, char *argv[]);
 int display_pmt(void);
 void execute_command(char *cmd, char *argv[], char *envp[]);

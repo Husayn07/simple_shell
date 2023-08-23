@@ -22,7 +22,7 @@ while (1 && status)
 	argc++;
 	argv[argc] = NULL;
 
-	checks = stat_check(argv, argc);
+	checks = stat_check(argv);
 	checkp = get_path(argv[0], &comand);
 	if (argc == 1)
 		continue;

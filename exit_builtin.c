@@ -12,4 +12,5 @@ int _exitcmd(char *argv[])
 			return (1);
 		if ((strcmp(argv[0], "EXIT")) == 0)
 			return (1);
+return (0);
 }

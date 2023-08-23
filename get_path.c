@@ -14,12 +14,13 @@
 int get_path(char *argv, char **comand)
 {
 	char *ptr = NULL;
+	char *ptr1 = NULL;
 	char *tok = NULL;
 	int check = 0;
 
 	*comand = NULL;
 	ptr = _getenv("PATH");
-	char *ptr1 = _strdup(ptr);
+	ptr1 = _strdup(ptr);
 
 	tok = _strtok(ptr1, ":");
 	while (tok)
