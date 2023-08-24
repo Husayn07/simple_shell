@@ -39,8 +39,10 @@ while (1)
 		_perror("./hsh: %d : %s : not found\n", n, argv[0]);
 	}
 	free(comand);
+	free(cmd1);
 	n++;
 }
+	free(cmd);
 	return (0);
 }
 
