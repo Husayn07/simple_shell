@@ -1,122 +1,112 @@
 #include "shell.h"
-/**
- * _strcmp - compare strings values
- * @s1: input value
- * @s2: input value
- * Return: s1[i] - s2[i]
- */
-int _strcmp(char *s1, char *s2)
-{
-	int i;
-
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-		{
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-
-
-
 
 /**
- * _strdup - duplicate to new memory space location
- * @str: char
- * Return: 0
+ * _strcmp - Compare string values
+ * @s1: First input string
+ * @s2: Second input string
+ * Return: 0 if equal, 1 if not equal
  */
-char *_strdup(char *str)
+int _strcmp(const char *s1, const char *s2)
 {
-	char *aaa;
-	int i, r = 0;
+        int i = 0;
 
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-
-	aaa = malloc(sizeof(char) * (i + 1));
-
-	if (aaa == NULL)
-		return (NULL);
-
-	for (r = 0; str[r]; r++)
-		aaa[r] = str[r];
-
-	return (aaa);
+        while (s1[i] != '\0' && s2[i] != '\0')
+        {
+                if (s1[i] != s2[i])
+                {
+                        return (1);
+                }
+                i++;
+        }
+        return (0);
 }
-
-
-
-
 
 /**
- * str_concat_ - get ends of input and add together for size
- * @s1: input one to concat
- * @s2: input two to concat
- * @s: input 3
- * Return: concat of s1 and s2
+ * _strdup - Duplicate a string
+ * @str: Input string
+ * Return: Pointer to the new duplicated string
  */
-char *str_concat_(char *s1, char *s, char *s2)
+char *_strdup(const char *str)
 {
-	char *conct;
-	int i, ci;
+        char *dup;
+        int i, len = 0;
 
-	if (s1 == NULL)
-		s1 = "";
-	if (s2 == NULL)
-		s2 = "";
+        if (str == NULL)
+                return (NULL);
 
-	i = ci = 0;
-	while (s1[i] != '\0')
-		i++;
-	while (s2[ci] != '\0')
-		ci++;
-	conct = malloc(sizeof(char) * (i + ci + 2));
+        while (str[len] != '\0')
+                len++;
 
-	if (conct == NULL)
-		return (NULL);
-	i = ci = 0;
-	while (s1[i] != '\0')
-	{
-		conct[i] = s1[i];
-		i++;
-	}
-	conct[i] = s[0];
-	i++;
-	while (s2[ci] != '\0')
-	{
-		conct[i] = s2[ci];
-		i++, ci++;
-	}
-	conct[i] = '\0';
-	return (conct);
+        dup = malloc(sizeof(char) * (len + 1));
+
+        if (dup == NULL)
+                return (NULL);
+
+        for (i = 0; str[i]; i++)
+                dup[i] = str[i];
+
+        return (dup);
 }
-
 
 /**
- *_strchr - Checks If A Character Match Any Char
- *@character: Character To Check
- *@str: String To Check
- *Return: Address Succes, NULL Failed
+ * str_concat_ - Concatenate strings with separator
+ * @s1: First input string
+ * @s: Separator string
+ * @s2: Second input string
+ * Return: Pointer to the concatenated string
  */
-
-char *_strchr(const char *str, int character)
+char *str_concat_(const char *s1, const char *s, const char *s2)
 {
-	while (*str != '\0')
-	{
-		if (*str == character)
-		{
-			return ((char *)str);
-		}
-		str++;
-	}
-	return (NULL);
+        char *concat;
+        int i, ci, len1 = 0, len2 = 0;
+
+        if (s1 == NULL)
+                s1 = "";
+        if (s2 == NULL)
+                s2 = "";
+
+        while (s1[len1] != '\0')
+                len1++;
+        while (s2[len2] != '\0')
+                len2++;
+
+        concat = malloc(sizeof(char) * (len1 + len2 + 2));
+
+        if (concat == NULL)
+                return (NULL);
+
+        i = ci = 0;
+        while (s1[i] != '\0')
+        {
+                concat[i] = s1[i];
+                i++;
+        }
+        concat[i] = s[0];
+        i++;
+        while (s2[ci] != '\0')
+        {
+                concat[i] = s2[ci];
+                i++, ci++;
+        }
+        concat[i] = '\0';
+        return (concat);
 }
 
+/**
+ * _strchr - Check if a character matches any character in a string
+ * @str: Input string
+ * @character: Character to check
+ * Return: Address if successful, NULL if failed
+ */
+char *_strchr(char *str, char character)
+{
+        while (*str != '\0')
+        {
+                if (*str == character)
+                {
+                        return (str);
+                }
+                str++;
+        }
+        return (NULL);
+}
