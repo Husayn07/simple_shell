@@ -5,8 +5,8 @@
  */
 int main(void)
 {
-	char *cmd = NULL, *cmd1 = NULL, *comand;
-	int checks, argc = 0, checkp = 0, n = 1;
+	char *cmd = NULL, *cmd1 = NULL, *comand = NULL;
+	int checks = 1, argc = 0, checkp = 0, n = 1;
 	char *argv[MAX];
 	size_t b = 1;
 	ssize_t bytes_read = 1;
@@ -38,11 +38,11 @@ while (1)
 			break;
 		_perror("./hsh: %d : %s : not found\n", n, argv[0]);
 	}
-	free(comand);
 	free(cmd1);
 	n++;
 }
 	free(cmd);
+	free(comand);
 	return (0);
 }
 
