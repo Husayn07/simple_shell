@@ -6,18 +6,11 @@
  * @c: Char argument
  * Return: 1 if successful, 0 if failed
  */
-<<<<<<< HEAD
-<<<<<<< HEAD
 int put_e(char c)
 {
     if (write(STDERR_FILENO, &c, sizeof(char)) == -1)
-        return 0;
-    return 1;
-=======
+    return (1);
 
-
-=======
->>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 int _perror(const char *str, ...)
 {
 	const char *ptr = str;
@@ -57,13 +50,7 @@ int _perror(const char *str, ...)
 		} ptr++;
 	}
 	va_end(arg);
-<<<<<<< HEAD
-
-	return (0);
->>>>>>> 08166b44cf598315666d741b71509f85df337302
-=======
 	return (printed_chars);
->>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 }
 
 
@@ -74,8 +61,6 @@ int _perror(const char *str, ...)
  */
 int putnum(int x)
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
     int y = x, i = 0, t = 1, p = 0;
 
     while (x)
@@ -94,20 +79,17 @@ int putnum(int x)
         i--;
     }
     return 1;
-=======
 	if ((write(STDERR_FILENO, &c, sizeof(char))) == 0)
 		return (1);
 	else
 		return (0);
->>>>>>> 08166b44cf598315666d741b71509f85df337302
-=======
+
 	if (write(STDERR_FILENO, &c, sizeof(char)) == -1)
 	{
 		perror("write");
 		return (0);
 	}
 	return (1);
->>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 }
 
 /**
@@ -117,16 +99,13 @@ int putnum(int x)
  */
 int _perror(const char *str, ...)
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
     va_list arg;
     int i = 0;
-=======
+
 	int y = x, i = 0, t = 1, p = 0;
-=======
+
 	int printed_chars = 0, num_digits, i, temp;
 	char digits[10];
->>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 
 	if (x == 0)
 	{
@@ -146,10 +125,9 @@ int _perror(const char *str, ...)
 		temp /= 10;
 		num_digits++;
 	}
-<<<<<<< HEAD
+
 	return (0);
 }
->>>>>>> 08166b44cf598315666d741b71509f85df337302
 
     va_start(arg, str);
     while (str[i])
@@ -179,7 +157,7 @@ int _perror(const char *str, ...)
     }
     va_end(arg);
     return 1;
-=======
+
 
 	for (i = num_digits - 1; i >= 0; i--)
 	{
@@ -191,5 +169,4 @@ int _perror(const char *str, ...)
 		printed_chars += put_e(digits[i]);
 	}
 	return (printed_chars);
->>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 }

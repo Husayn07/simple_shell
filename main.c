@@ -7,22 +7,25 @@
  */
 int main(void)
 {
-	char *cmd = NULL, *cmd1 = NULL, *comand;
-	int checks, argc = 0, checkp = 0, status = 1, n = 1;
+	char *cmd = NULL, *cmd1 = NULL, *comand = NULL;
+	int checks = 1, argc = 0, checkp = 0, n = 1;
 	char *argv[MAX];
 	size_t b = 1;
+	ssize_t bytes_read = 1;
 
-while (1 && status)
+while (1)
 {
-	display_pmt();
-	getline(&cmd, &b, stdin);
-	status = isstatus();
+	if (isstatus())
+		display_pmt();
+	bytes_read = getline(&cmd, &b, stdin);
+	if (bytes_read == -1)
+		break;
+	if (bytes_read > 1 && cmd[bytes_read - 1] == '\n')
+		cmd[bytes_read - 1] = '\0';
 	cmd1 = _strdup(cmd);
-
 	cmd_check(cmd1, &argc, argv);
 	argc++;
 	argv[argc] = NULL;
-
 	checks = stat_check(argv);
 	checkp = get_path(argv[0], &comand);
 	if (argc == 1 && ++n)
@@ -37,9 +40,11 @@ while (1 && status)
 			break;
 		_perror("./hsh: %d : %s : not found\n", n, argv[0]);
 	}
-	free(comand);
+	free(cmd1);
 	n++;
 }
+	free(cmd);
+	free(comand);
 	return (0);
 }
 
@@ -62,7 +67,6 @@ int display_pmt(void)
 	{
 		write(1, &d, 1);
 		write(1, &c, 1);
-		write(1, "\n", 1);
 		return (1);
 	}
 	else
@@ -174,16 +178,17 @@ void execute_command(char *cmd, char *argv[], char *envp[])
 	else
 	{
 		int status;
+
 		waitpid(pid, &status, 0);
 	}
 >>>>>>> 3a27f151c97ffc997d4fb0e7cba70d06d02989ab
 }
 /**
  * isstatus - check stdin and stdout.
- *Return: 1|0 
+ *Return: 1|0
  */
 
 int isstatus(void)
 {
-	return isatty(STDIN_FILENO) && isatty(STDOUT_FILENO);
+	return (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO));
 }

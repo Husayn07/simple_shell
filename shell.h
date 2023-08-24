@@ -9,8 +9,13 @@
 #include <errno.h>
 #include <unistd.h>
 
+<<<<<<< HEAD
 #define MAX 25
 #define MAX_ARGS 10
+=======
+#define MAX 100
+extern char **environ;
+>>>>>>> c19e6aa79a40e07ed8c4f205fc1622aa8203c964
 
 extern char **environ;
 
